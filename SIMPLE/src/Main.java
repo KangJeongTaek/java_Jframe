@@ -44,6 +44,7 @@ public class Main extends JFrame{
         start.add(btn2);
         btn2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                setEnabled(false);
                 new LogInFrame();
             }
         });

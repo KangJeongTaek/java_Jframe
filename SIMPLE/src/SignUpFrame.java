@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 public class SignUpFrame extends JFrame{
     public SignUpFrame(){
@@ -20,6 +21,7 @@ public class SignUpFrame extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
+        JRootPane rootPane = getRootPane();
 
 
         //아이디 입력 공간
@@ -46,7 +48,7 @@ public class SignUpFrame extends JFrame{
                 String id = idText.getText();
                 String pas = pasText.getText();
                 closeWindow();
-                JOptionPane.showMessageDialog(btn1, "Hi, This is Information message.", "정보", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(btn1, "회원 가입 성공!!", "확인", JOptionPane.INFORMATION_MESSAGE);
                 
             }
         });
@@ -56,6 +58,7 @@ public class SignUpFrame extends JFrame{
         c.add(idPanel);
         c.add(pasPanel);
         c.add(loginPanel);
+        rootPane.setDefaultButton(btn1);
         setLocationRelativeTo(null);
         setVisible(true);
         

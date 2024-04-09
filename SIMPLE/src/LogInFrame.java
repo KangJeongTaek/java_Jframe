@@ -2,12 +2,16 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 public class LogInFrame extends JFrame{
@@ -20,6 +24,9 @@ public class LogInFrame extends JFrame{
         
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
+
+        JRootPane rootPane = getRootPane();
+        
 
 
         
@@ -42,8 +49,8 @@ public class LogInFrame extends JFrame{
         JPanel loginPanel = new JPanel();
         JButton btn1 = new JButton("확인");
         loginPanel.add(btn1);
+        btn1.setActionCommand("Login");
         btn1.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = idText.getText();
@@ -53,22 +60,32 @@ public class LogInFrame extends JFrame{
                     Main.getInstance().closeWindow();
                     new SystemMain();
                 }else{
-                    System.out.println("로그인 실패");
+                    JOptionPane.showMessageDialog(btn1, "해당 정보가 없습니다. 아이디/ 비밀번호를 확인해 주세요.", "확인", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
+        
+        
 
 
-
+        
         
         setSize(240,160);
         c.add(idPanel);
         c.add(pasPanel);
         c.add(btn1);
+        
+        rootPane.setDefaultButton(btn1);
         setLocationRelativeTo(null);
         setVisible(true);
 
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                Main.getInstance().setEnabled(true);
+            }
+        });
     }
 
     public void closeWindow() {
