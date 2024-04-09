@@ -15,10 +15,11 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 public class LogInFrame extends JFrame{
-
+    String id;
+    String pas;
     public LogInFrame(){
         //데이터베이스 연결하기
-        UserDatabase udb = new UsersDatabase();
+        UsersDatabase udb = new UsersDatabase();
 
         setTitle("로그인");
         setResizable(false);
@@ -56,10 +57,14 @@ public class LogInFrame extends JFrame{
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = idText.getText();
-                String pas = pasText.getText();
-                if(udb.logincheck){
-                    System.out.println("로그인 성공");
+                id = idText.getText();
+                pas = pasText.getText();
+                if(udb.logincheck(id,pas)){
+                    dispose();
+                    Main.getInstance().dispose();
+                    new SystemMain();
+                }else{
+                    JOptionPane.showMessageDialog(null, "해당하는 정보가 없습니다. 아이디/ 비밀번호를 확인해주세요.");
                 }
             }
         });
@@ -81,7 +86,14 @@ public class LogInFrame extends JFrame{
 
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent we) {
+            public void windowClosed(WindowEvent we) {
+                udb.databaseClose();
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we){
                 Main.getInstance().setEnabled(true);
             }
         });

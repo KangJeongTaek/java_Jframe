@@ -29,4 +29,9 @@ public class UsersDto {
     public void setTime_Re(int time_Re) {
         this.time_Re = time_Re;
     }
+
+    @Override
+    public String toString(){
+        return "아이디 : " + id + ", 비밀번호 : " + password; 
+    }
 }
