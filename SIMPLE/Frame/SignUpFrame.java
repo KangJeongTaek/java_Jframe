@@ -16,7 +16,7 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 import Database.UsersDatabase;
-import Main.Main;
+import EXE.Main;
 public class SignUpFrame extends JFrame{
     public SignUpFrame(){
         //데이터베이스 연결하기

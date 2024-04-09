@@ -1,4 +1,5 @@
-package Main;
+package EXE;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;

@@ -1,4 +1,4 @@
-package Main;
+package EXE;
 public class TimeThread implements Runnable {
     private Thread timeThread;
     private long time;

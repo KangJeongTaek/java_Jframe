@@ -1,7 +1,9 @@
 {
     "java.project.sourcePaths": [
+        "SIMPLE/tetris/main",
         "SIMPLE/src",
-        "SIMPLE/tetris/main"
+        "SIMPLE/Main",
+        "SIMPLE"
     ],
     "java.project.referencedLibraries": [
         "c:\\app\\PKNU\\product\\21c\\dbhomeXE\\jdbc\\lib\\ojdbc8.jar",
