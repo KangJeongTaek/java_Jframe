@@ -61,8 +61,6 @@ public class UserLoginedSeat extends JFrame {
                     e.printStackTrace();
                 }
                 y -= MOVE_DISTANCE;
-                System.out.println(y);
-                System.out.println(SEAT_Y);
                 if (Math.abs(y - SEAT_Y) <= MOVE_DISTANCE) {
                     System.out.println(y);
                     dispose();

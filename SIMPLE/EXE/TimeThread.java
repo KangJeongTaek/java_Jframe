@@ -12,11 +12,11 @@ public class TimeThread implements Runnable {
     public void run() {
         long nanoPerSecond = 1000000000;
         long lastTime = System.nanoTime();
-        while (true) { // Infinite loop to keep the thread running
+        while (true) { 
             long currentTime = System.nanoTime();
-            if (currentTime - lastTime >= nanoPerSecond) { // Check if 1 second has passed
+            if (currentTime - lastTime >= nanoPerSecond) {
                 time++;
-                System.out.println("Time: " + time + " seconds");
+                System.out.println(time);
                 lastTime = currentTime;
             }
         }
