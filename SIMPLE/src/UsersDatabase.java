@@ -21,7 +21,7 @@ public class UsersDatabase {
             String user = "ADAM";
             String pw = "1234";
             con = DriverManager.getConnection(url,user,pw);
-            stmt = con. 
+            stmt = con.createStatement();
             System.out.println("연결 성공");
         }catch(ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class UsersDatabase {
         String pas = p;
         try {
 			String checkingStr = "SELECT password FROM member WHERE id='" + id + "'";
-			ResultSet result = stmt.executeQ(checkingStr);
+			ResultSet result = stmt.executeQuery(checkingStr);
 			int count = 0;
 			while(result.next()) {
 				if(pas.equals(result.getString("password"))) {

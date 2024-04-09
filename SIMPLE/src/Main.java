@@ -80,8 +80,7 @@ public class Main extends JFrame{
     }
 
     public static void main(String[] args){
-        //데이터베이스 연결하기
-        new UsersDatabase();
+        
         
         //메인 화면 띄우기
         new Main();

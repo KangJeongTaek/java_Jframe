@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 public class LogInFrame extends JFrame{
 
     public LogInFrame(){
-        
+        //데이터베이스 연결하기
+        UserDatabase udb = new UsersDatabase();
+
         setTitle("로그인");
         setResizable(false);
         pack();
@@ -56,9 +58,7 @@ public class LogInFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String id = idText.getText();
                 String pas = pasText.getText();
-                UsersLogin b = new UsersLogin(id,pas);
-                
-                if(b.b){
+                if(udb.logincheck){
                     System.out.println("로그인 성공");
                 }
             }
