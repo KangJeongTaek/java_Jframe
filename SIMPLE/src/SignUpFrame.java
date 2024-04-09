@@ -27,14 +27,14 @@ public class SignUpFrame extends JFrame{
         //아이디 입력 공간
         JPanel idPanel = new JPanel();
         idPanel.add(new JLabel( "  아이디  "));
-		JTextField idText = new JTextField(9);
+		JTextField idText = new JTextField(11);
         idPanel.add(idText);
 		
 
         //비밀번호 입력 공간
         JPanel pasPanel = new JPanel();
         pasPanel.add(new JLabel("비밀번호"));
-        JPasswordField pasText = new JPasswordField(9);
+        JPasswordField pasText = new JPasswordField(11);
         pasPanel.add(pasText);
         
 

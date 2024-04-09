@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 public class LogInFrame extends JFrame{
 
     public LogInFrame(){
+        
         setTitle("로그인");
         setResizable(false);
         pack();
@@ -33,7 +34,7 @@ public class LogInFrame extends JFrame{
         //아이디 입력 공간
         JPanel idPanel = new JPanel();
         idPanel.add(new JLabel("   아이디  "));
-		JTextField idText = new JTextField(9);
+		JTextField idText = new JTextField(11);
         idPanel.add(idText);
 		
 
@@ -41,7 +42,7 @@ public class LogInFrame extends JFrame{
         //비밀번호 입력 공간
         JPanel pasPanel = new JPanel();
         pasPanel.add(new JLabel("비밀번호"));
-        JPasswordField pasText = new JPasswordField(9);
+        JPasswordField pasText = new JPasswordField(11);
         pasPanel.add(pasText);
 
 
@@ -55,12 +56,10 @@ public class LogInFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String id = idText.getText();
                 String pas = pasText.getText();
-                if(id.equals("dfgddjd") && pas.equals("123")){
-                    closeWindow();
-                    Main.getInstance().closeWindow();
-                    new SystemMain();
-                }else{
-                    JOptionPane.showMessageDialog(btn1, "해당 정보가 없습니다. 아이디/ 비밀번호를 확인해 주세요.", "확인", JOptionPane.INFORMATION_MESSAGE);
+                UsersLogin b = new UsersLogin(id,pas);
+                
+                if(b.b){
+                    System.out.println("로그인 성공");
                 }
             }
         });

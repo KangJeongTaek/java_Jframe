@@ -11,24 +11,12 @@ public class UserLoginedSeat extends JFrame {
     Random random = new Random();
     UserLoginedSeat(){
         instance = this;
-        setTitle("좌석으로 이동 키보드 방향키 위 쪽을 눌러주세요.");
+        setTitle("좌석으로 이동 중");
         setSize(300,500);
         setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BorderLayout());
-        setContentPane(contentPane);
-
-        Block user = new Block(200, 50); // 중앙 아래로 변경
-        
-
-        
-        Circle seat = new Circle(220, 50);
-        contentPane.add(seat);
-        contentPane.add(user);
 
         
     }
@@ -38,32 +26,4 @@ public class UserLoginedSeat extends JFrame {
     }
 }
 
-class Block extends JPanel{
-    private int x, y;
-    
-    public Block(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 
-    public void paintComponent(Graphics g2){
-        super.paintComponent(g2);
-        g2.setColor(Color.RED);
-        g2.fillRect(x, y, 10, 10);
-    }
-}
-
-class Circle extends JPanel {
-    private int x, y;
-    
-    public Circle(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public void paintComponent(Graphics g2){
-        super.paintComponent(g2);
-        g2.setColor(Color.BLUE);
-        g2.fillOval(x, y, 10, 10);
-    }
-}

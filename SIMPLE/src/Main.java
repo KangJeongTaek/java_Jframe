@@ -3,15 +3,27 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 public class Main extends JFrame{
+
     // 정적 변수 선언
     private static Main instance;
 
+    // 이름과 비밀 번호를 담을 배열 선언
     public Main(){
+       
         instance = this;
         final int WIDTH = 600;
         final int HEIGHT = 300;
@@ -24,16 +36,6 @@ public class Main extends JFrame{
         start.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         start.setBackground(new Color(240, 240, 240));
         start.setLayout(null);
-
-        JButton btn1 = new JButton("종료");
-        btn1.setBounds(WIDTH - 80, HEIGHT-30, 70,20);
-        start.add(btn1);
-        btn1.addActionListener(new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
 
             
         // 로그인 버튼 구현
@@ -78,6 +80,12 @@ public class Main extends JFrame{
     }
 
     public static void main(String[] args){
+        //데이터베이스 연결하기
+        new UsersDatabase();
+        
+        //메인 화면 띄우기
         new Main();
+
+       
     }
 }

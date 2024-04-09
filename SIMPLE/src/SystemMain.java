@@ -18,7 +18,7 @@ public class SystemMain extends JFrame{
     public SystemMain(){
         instance = this;
         Seat[] seats = new Seat[50];
-        setTitle("좌석 예약");
+        setTitle("자리 선택");
         setResizable(false);
        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
