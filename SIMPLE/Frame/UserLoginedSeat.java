@@ -1,4 +1,4 @@
-package Database;
+package Frame;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;
@@ -56,11 +56,17 @@ public class UserLoginedSeat extends JFrame {
             while (isRunning) {
                 try {
                     Thread.sleep(100);
+                    System.out.println("실행");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 y -= MOVE_DISTANCE;
-                if (y == SEAT_Y) {
+                System.out.println(y);
+                System.out.println(SEAT_Y);
+                if (Math.abs(y - SEAT_Y) <= MOVE_DISTANCE) {
+                    System.out.println(y);
+                    dispose();
+                    new UiFrame();
                     isRunning = false;
                 }
                 panel.repaint();

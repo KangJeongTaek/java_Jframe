@@ -59,6 +59,7 @@ public class LogInFrame extends JFrame{
         loginPanel.add(btn1);
         btn1.setActionCommand("Login");
         btn1.addActionListener(new ActionListener() {
+            @SuppressWarnings("deprecation")
             @Override
             public void actionPerformed(ActionEvent e) {
                 id = idText.getText();

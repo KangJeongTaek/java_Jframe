@@ -53,6 +53,7 @@ public class SignUpFrame extends JFrame{
         btn1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String id = idText.getText();
+                @SuppressWarnings("deprecation")
                 String pas = pasText.getText();
                 if(id.equals("") || pas.equals("")){
                     JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.");

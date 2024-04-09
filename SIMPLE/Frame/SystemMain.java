@@ -14,8 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import Database.UserLoginedSeat;
-
 public class SystemMain extends JFrame{
     private static SystemMain instance;
     public SystemMain(){
