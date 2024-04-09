@@ -1,3 +1,4 @@
+package Frame;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
+
+import Database.UsersDatabase;
+import Main.Main;
 
 public class LogInFrame extends JFrame{
     String id;
@@ -59,13 +63,17 @@ public class LogInFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 id = idText.getText();
                 pas = pasText.getText();
-                if(udb.logincheck(id,pas)){
-                    dispose();
-                    Main.getInstance().dispose();
-                    new SystemMain();
+                if(id.equals("")||pas.equals("")){
+                    JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.");
                 }else{
-                    JOptionPane.showMessageDialog(null, "해당하는 정보가 없습니다. 아이디/ 비밀번호를 확인해주세요.");
-                }
+                    if(udb.logincheck(id,pas)){
+                        dispose();
+                        Main.getInstance().dispose();
+                        new SystemMain();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "해당하는 정보가 없습니다. 아이디/ 비밀번호를 확인해주세요.");
+                    }
+            }
             }
         });
         

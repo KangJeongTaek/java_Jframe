@@ -1,3 +1,4 @@
+package Frame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+
+import Database.UserLoginedSeat;
 
 public class SystemMain extends JFrame{
     private static SystemMain instance;
@@ -31,7 +34,7 @@ public class SystemMain extends JFrame{
 
         for(int i =0; i<seats.length;i++){
             seats[i] = new Seat();
-            seats[i].add(new JLabel(i+1 +"번 자리"),SwingConstants.CENTER);
+            seats[i].add(new JLabel(i+1 +"번 자리",SwingConstants.CENTER),SwingConstants.CENTER);
             jpanel.add(seats[i]);
         }
 

@@ -1,3 +1,4 @@
+package Database;
 public class UsersDto {
     private String id;
     private String password;

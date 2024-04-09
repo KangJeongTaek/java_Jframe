@@ -1,25 +1,21 @@
+package Main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-public class Main extends JFrame{
 
+import Frame.LogInFrame;
+import Frame.SignUpFrame;
+public class Main extends JFrame{
+    public int time;
     // 정적 변수 선언
     private static Main instance;
+    Thread timeThread;
 
     // 이름과 비밀 번호를 담을 배열 선언
     public Main(){
@@ -78,13 +74,13 @@ public class Main extends JFrame{
     public static Main getInstance() {
         return instance;
     }
-
+    
     public static void main(String[] args){
         
         
         //메인 화면 띄우기
         new Main();
-
-       
     }
+
+    
 }

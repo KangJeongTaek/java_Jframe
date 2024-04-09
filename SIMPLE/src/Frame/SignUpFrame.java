@@ -1,3 +1,4 @@
+package Frame;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
+
+import Database.UsersDatabase;
+import Main.Main;
 public class SignUpFrame extends JFrame{
     public SignUpFrame(){
         //데이터베이스 연결하기
@@ -50,13 +54,17 @@ public class SignUpFrame extends JFrame{
             public void actionPerformed(ActionEvent e){
                 String id = idText.getText();
                 String pas = pasText.getText();
-                if(udb.signUp(id, pas)){
-                    closeWindow();
-                    JOptionPane.showMessageDialog(null, "회원 가입 성공!!", "확인", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(null, "중복되는 아이디가 있습니다. 아이디를 바꿔 주세요.");
+                if(id.equals("") || pas.equals("")){
+                    JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.");
                 }
-                
+                else{
+                    if(udb.signUp(id, pas)){
+                        closeWindow();
+                        JOptionPane.showMessageDialog(null, "회원 가입 성공!!", "확인", JOptionPane.INFORMATION_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "중복되는 아이디가 있습니다. 아이디를 바꿔 주세요.");
+                    }
+                }
                 
             }
         });
@@ -74,6 +82,7 @@ public class SignUpFrame extends JFrame{
             @Override
             public void windowClosed(WindowEvent we) {
                 Main.getInstance().setEnabled(true);
+                udb.databaseClose();
             }
         });
     }

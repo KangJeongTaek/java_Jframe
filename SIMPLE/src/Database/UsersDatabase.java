@@ -1,3 +1,4 @@
+package Database;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +13,7 @@ public class UsersDatabase {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     //DB 로그인 확인하기
-    UsersDatabase(){
+    public UsersDatabase(){
         
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -28,7 +29,7 @@ public class UsersDatabase {
         }
     }
 
-    boolean logincheck(String i, String p){
+    public boolean logincheck(String i, String p){
         boolean b = false;
         String id = i;
         String pas = p;
@@ -53,7 +54,7 @@ public class UsersDatabase {
         return b;
     }
 
-    boolean signUp(String i, String p){
+    public boolean signUp(String i, String p){
         String id = i;
         String pas = p;
         boolean c = false;
@@ -73,6 +74,26 @@ public class UsersDatabase {
         }
             return c;
     }
+
+    public void addTime(String i, int m){
+        String id = i;
+        int minute = m;
+        String checkStr = "SELECT * FROM USERS WHERE TIME_RE !=" + 0;
+        
+        
+        try{
+        ResultSet result = stmt.executeQuery(checkStr);
+        if(result.next()== false){
+            String updateStr = "UPDATE USERS SET TIME_RE = " + minute + "WHERE ID = " + "'" + id + "'";
+            pstmt = con.prepareStatement(updateStr);
+            pstmt.executeUpdate();
+        }else{
+
+        }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    } 
 
     public void databaseClose(){
         if(stmt!=null){
