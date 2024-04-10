@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.sql.Time;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,8 +27,8 @@ public class UiFrame extends JFrame{
         // 기본적인 프레임 설정
         setTitle("정택 PC");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(800, 480));
         pack();
+        setSize(new Dimension(800, 480));
         setResizable(false);
         
         setLocationRelativeTo(null); 
@@ -52,7 +53,8 @@ public class UiFrame extends JFrame{
         
         // 북측 패널
         //먹거리 주문 버튼 추가
-        northJPanel.add(new JButton("먹거리 주문"));
+        JButton foodJButton = new JButton("먹거리 주문");
+        northJPanel.add(foodJButton);
         
 
         // 우측 패널
@@ -61,11 +63,13 @@ public class UiFrame extends JFrame{
         eastJPanel.add(rmt);
 
         //우측 세번 째 패널 (시간 충전 버튼)
-        eastJPanel.add(new JButton("시간 충전"));
+        JButton timechargeJButton = new JButton("시간 충전");
+        eastJPanel.add(timechargeJButton);
   
 
         //우측 네번 째 패널 (종료 버튼)
-        eastJPanel.add(new JButton("시스템 종료"));
+        JButton shutdowJButton = new JButton("시스템 종료");
+        eastJPanel.add(shutdowJButton);
        
         //남쪽 패널
         //테트리스 게임 버튼 추가
@@ -80,17 +84,19 @@ public class UiFrame extends JFrame{
 
         //중앙 패널
         centerPanel.setLayout(new BorderLayout());
+        
         //이미지 아이콘 생성
         ImageIcon icon = new ImageIcon("./SIMPLE/image/Image.jpg");
         //이미지 크기 변경
         Image img = icon.getImage();
-        Image changeImage = img.getScaledInstance(centerPanel.getWidth(),centerPanel.getHeight(), Image.SCALE_SMOOTH);
+        Image changeImage = img.getScaledInstance(726,423, Image.SCALE_SMOOTH);
         ImageIcon changeIcon = new ImageIcon(changeImage);
-        
         JLabel imgJLabel = new JLabel(changeIcon);
+
         centerPanel.add(imgJLabel,BorderLayout.CENTER);
 
-        
+
+
         // 시간을 업데이트하는 스레드 시작
         new TimeThread();
 

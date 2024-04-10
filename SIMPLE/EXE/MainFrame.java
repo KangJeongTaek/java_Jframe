@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import Game.tetris_main.Tetris;
 import Frame.LogInFrame;
+import Frame.MenuFrame;
 import Frame.SignUpFrame;
 import Frame.SystemMain;
 import Frame.UiFrame;
@@ -82,8 +83,8 @@ public class MainFrame extends JFrame{
         
         
         //메인 화면 띄우기
-        new MainFrame();
-       
+        // new MainFrame();
+       new UiFrame();
         
     }
 
