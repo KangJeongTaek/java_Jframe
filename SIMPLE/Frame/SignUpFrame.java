@@ -16,12 +16,14 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 import Database.UsersDatabase;
-import EXE.Main;
+import EXE.MainFrame;
 public class SignUpFrame extends JFrame{
     public SignUpFrame(){
         //데이터베이스 연결하기
         UsersDatabase udb = new UsersDatabase();
+        udb.connect();
 
+        //기본 설정
         setTitle("회원가입");
         setResizable(false);
         pack();
@@ -82,7 +84,7 @@ public class SignUpFrame extends JFrame{
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent we) {
-                Main.getInstance().setEnabled(true);
+                MainFrame.getInstance().setEnabled(true);
                 udb.databaseClose();
             }
         });

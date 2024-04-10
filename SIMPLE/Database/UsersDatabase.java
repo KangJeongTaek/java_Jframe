@@ -1,5 +1,8 @@
 package Database;
 import java.sql.Statement;
+
+import Frame.LogInFrame;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,8 +16,7 @@ public class UsersDatabase {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     //DB 로그인 확인하기
-    public UsersDatabase(){
-        
+    public void connect(){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             System.out.println("JDBC Driver 로드 성공!!");
@@ -75,21 +77,17 @@ public class UsersDatabase {
             return c;
     }
 
-    public void addTime(String i, int m){
-        String id = i;
+    public void addTime(int m){
         int minute = m;
-        String checkStr = "SELECT * FROM USERS WHERE TIME_RE !=" + 0;
-        
-        
         try{
-        ResultSet result = stmt.executeQuery(checkStr);
-        if(result.next()== false){
-            String updateStr = "UPDATE USERS SET TIME_RE = " + minute + "WHERE ID = " + "'" + id + "'";
-            pstmt = con.prepareStatement(updateStr);
-            pstmt.executeUpdate();
-        }else{
-
-        }
+            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ LogInFrame.id + "'";
+            ResultSet rs = stmt.executeQuery(selectStr);
+            if(rs.next() != false){
+                int time_re = rs.getInt("TIME_RE");
+                String updateStr = "UPDATE USERS SET TIME_RE = " + (minute + time_re) + "WHERE ID = " + "'" + LogInFrame.id + "'";
+                pstmt = con.prepareStatement(updateStr);
+                pstmt.executeUpdate();
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }

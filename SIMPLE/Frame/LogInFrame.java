@@ -16,15 +16,17 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 import Database.UsersDatabase;
-import EXE.Main;
+import EXE.MainFrame;
 
 public class LogInFrame extends JFrame{
-    String id;
-    String pas;
+    public static String id;
+    public String pas;
     public LogInFrame(){
         //데이터베이스 연결하기
         UsersDatabase udb = new UsersDatabase();
+        udb.connect();
 
+        //기본 설정
         setTitle("로그인");
         setResizable(false);
         pack();
@@ -69,7 +71,7 @@ public class LogInFrame extends JFrame{
                 }else{
                     if(udb.logincheck(id,pas)){
                         dispose();
-                        Main.getInstance().dispose();
+                        MainFrame.getInstance().dispose();
                         new SystemMain();
                     }else{
                         JOptionPane.showMessageDialog(null, "해당하는 정보가 없습니다. 아이디/ 비밀번호를 확인해주세요.");
@@ -103,7 +105,7 @@ public class LogInFrame extends JFrame{
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we){
-                Main.getInstance().setEnabled(true);
+                MainFrame.getInstance().setEnabled(true);
             }
         });
     }

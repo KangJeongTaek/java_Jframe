@@ -9,17 +9,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import Game.tetris_main.Tetris;
 import Frame.LogInFrame;
 import Frame.SignUpFrame;
-public class Main extends JFrame{
+import Frame.SystemMain;
+import Frame.UiFrame;
+public class MainFrame extends JFrame{
     public int time;
     // 정적 변수 선언
-    private static Main instance;
+    private static MainFrame instance;
     Thread timeThread;
 
     // 이름과 비밀 번호를 담을 배열 선언
-    public Main(){
+    public MainFrame(){
        
         instance = this;
         final int WIDTH = 600;
@@ -72,7 +74,7 @@ public class Main extends JFrame{
         this.dispose();
     }
 
-    public static Main getInstance() {
+    public static MainFrame getInstance() {
         return instance;
     }
     
@@ -80,7 +82,9 @@ public class Main extends JFrame{
         
         
         //메인 화면 띄우기
-        new Main();
+        new MainFrame();
+       
+        
     }
 
     

@@ -2,7 +2,7 @@ package EXE;
 public class TimeThread implements Runnable {
     private Thread timeThread;
     private long time;
-
+    private int minute;
     public TimeThread() {
         timeThread = new Thread(this);
         timeThread.start();
@@ -17,6 +17,10 @@ public class TimeThread implements Runnable {
             if (currentTime - lastTime >= nanoPerSecond) {
                 time++;
                 System.out.println(time);
+                if(time == 60){
+                    minute ++;
+                    time = 0;
+                }
                 lastTime = currentTime;
             }
         }

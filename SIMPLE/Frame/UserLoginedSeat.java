@@ -29,7 +29,15 @@ public class UserLoginedSeat extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawPerson(g);
-                drawSeat(g);
+                drawSeat(g,SEAT_X,SEAT_Y,Color.GREEN);
+                drawSeat(g,SEAT_X + 80, 0,Color.gray);
+                drawSeat(g,SEAT_X - 80, 0,Color.gray);
+                int wall_y = RECT_HEIGHT;
+                while(wall_y<= FRAME_HEIGHT){
+                    drawSeat(g,SEAT_X + 80, 0 + wall_y,Color.GRAY);
+                    drawSeat(g,SEAT_X - 80, 0 + wall_y,Color.GRAY);
+                    wall_y += RECT_HEIGHT;
+                }
             }
         };
         getContentPane().add(panel);
@@ -44,11 +52,11 @@ public class UserLoginedSeat extends JFrame {
 
     private void drawPerson(Graphics g) {
         g.setColor(Color.BLUE);
-        g.fillRect(x, y, RECT_WIDTH, RECT_HEIGHT);
+        g.fillOval(x, y, RECT_WIDTH, RECT_HEIGHT);
     }
-    private void drawSeat(Graphics g){
-        g.setColor(Color.RED);
-        g.fillRect(SEAT_X,SEAT_Y,RECT_WIDTH,RECT_HEIGHT);
+    private void drawSeat(Graphics g,int x, int y, Color color){
+        g.setColor(color);
+        g.fillRect(x,y,RECT_WIDTH,RECT_HEIGHT);
     }
 
     private void movePerson() {
@@ -56,13 +64,11 @@ public class UserLoginedSeat extends JFrame {
             while (isRunning) {
                 try {
                     Thread.sleep(100);
-                    System.out.println("실행");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                y -= MOVE_DISTANCE;
+                y -= MOVE_DISTANCE *2;
                 if (Math.abs(y - SEAT_Y) <= MOVE_DISTANCE) {
-                    System.out.println(y);
                     dispose();
                     new UiFrame();
                     isRunning = false;
