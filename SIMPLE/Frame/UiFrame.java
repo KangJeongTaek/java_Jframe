@@ -5,24 +5,37 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import Game.tetris_main.Tetris;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
+import Database.UsersDatabase;
 import EXE.TimeThread;
-public class UiFrame extends JFrame{
+import Game.tetris_main.Tetris;
+public class UiFrame extends JFrame implements ActionListener{
     private JPanel southJPanel;
     private JPanel eastJPanel;
     private JPanel northJPanel;
     private JPanel centerPanel;
-
+    private JButton shutdowJButton;
+    private JButton timechargeJButton;
+    private JButton tetrisJButton;
+    private JButton snakeJButton;
+    private JButton githubJButton;
+    private JButton foodJButton;
+    private UsersDatabase udb;
 
     public UiFrame() {
+        // DB 연결
+        udb = new UsersDatabase();
+        udb.connect();
+
         // 기본적인 프레임 설정
         setTitle("정택 PC");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +65,7 @@ public class UiFrame extends JFrame{
         
         // 북측 패널
         //먹거리 주문 버튼 추가
-        JButton foodJButton = new JButton("먹거리 주문");
+        foodJButton = new JButton("먹거리 주문");
         northJPanel.add(foodJButton);
         
 
@@ -62,23 +75,26 @@ public class UiFrame extends JFrame{
         eastJPanel.add(rmt);
 
         //우측 세번 째 패널 (시간 충전 버튼)
-        JButton timechargeJButton = new JButton("시간 충전");
+        timechargeJButton = new JButton("시간 충전");
         eastJPanel.add(timechargeJButton);
   
 
         //우측 네번 째 패널 (종료 버튼)
-        JButton shutdowJButton = new JButton("시스템 종료");
+        shutdowJButton = new JButton("시스템 종료");
         eastJPanel.add(shutdowJButton);
        
         //남쪽 패널
         //테트리스 게임 버튼 추가
-        southJPanel.add(new JButton("테트리스 게임"));
+        tetrisJButton = new JButton("테트리스 게임");
+        southJPanel.add(tetrisJButton);
 
         //스네이크 게임 버튼 추가
-        southJPanel.add(new JButton("지렁이 게임"));
+        snakeJButton = new JButton("지렁이 게임");
+        southJPanel.add(snakeJButton);
 
         //인터넷 버튼 추가
-        southJPanel.add(new JButton("GitHub 연결"));
+        githubJButton = new JButton("GitHub 연결");
+        southJPanel.add(githubJButton);
 
 
         //중앙 패널
@@ -99,8 +115,16 @@ public class UiFrame extends JFrame{
         // 시간을 업데이트하는 스레드 시작
         new TimeThread();
 
+
+        //버튼에 대한 리스너 추가
+        shutdowJButton.addActionListener(this);
+        timechargeJButton.addActionListener(this);
+        tetrisJButton.addActionListener(this);
+        snakeJButton.addActionListener(this);
+        githubJButton.addActionListener(this);
+        foodJButton.addActionListener(this);
+
         // 화면에 보이도록 설정
-        
         setVisible(true);
         
     }
@@ -112,6 +136,31 @@ public class UiFrame extends JFrame{
             add(new JLabel("표시"));
             
         
+        }
+    }
+
+
+    // 각 버튼에 대한 작동
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == shutdowJButton){
+            int ok = JOptionPane.showConfirmDialog(this, "종료하시겠습니까?");
+            if(ok == 0){
+                udb.databaseClose();
+                System.exit(0);
+            }
+        }
+        if(e.getSource() == timechargeJButton){
+            udb.addTime(0); // 아직 구현덜 됨
+        }
+        if(e.getSource() == foodJButton){
+            new MenuFrame();
+        }
+        if(e.getSource() == tetrisJButton){
+            new Tetris();
+        }
+        if(e.getSource() == snakeJButton){
+            
         }
     }
 }

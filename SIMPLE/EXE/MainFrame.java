@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Frame.LogInFrame;
-import Frame.MenuFrame;
 import Frame.SignUpFrame;
+import Frame.UiFrame;
 public class MainFrame extends JFrame{
     public int time;
     // 정적 변수 선언
@@ -81,8 +81,8 @@ public class MainFrame extends JFrame{
         
         
         //메인 화면 띄우기
-        new MainFrame();
-       new MenuFrame();
+        //   new MenuFrame();
+        new UiFrame();
         
     }
 
