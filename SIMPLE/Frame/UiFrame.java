@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Database.UsersDatabase;
-import EXE.TimeThread;
+import Frame.UiFrame.RemainTime;
 import Game.snake_main.SnakeStart;
 import Game.tetris_main.Tetris;
-public class UiFrame extends JFrame implements ActionListener{
+public class UiFrame extends JFrame implements ActionListener ,Runnable{
     private JPanel southJPanel;
     private JPanel eastJPanel;
     private JPanel northJPanel;
@@ -32,11 +32,12 @@ public class UiFrame extends JFrame implements ActionListener{
     private JButton snakeJButton;
     private JButton githubJButton;
     private JButton foodJButton;
-    private UsersDatabase udb;
-    private URI uri;
-    private int minutes;
-
+    private static UsersDatabase udb;
+    private static UiFrame instance;
+    private long time;
+    private int minute;
     public UiFrame() {
+        instance = this;
         // DB 연결
         udb = new UsersDatabase();
         udb.connect();
@@ -48,7 +49,7 @@ public class UiFrame extends JFrame implements ActionListener{
         setSize(new Dimension(800, 480));
         setResizable(false);
         
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
         
         // 패널 생성
         northJPanel = new JPanel();
@@ -82,12 +83,12 @@ public class UiFrame extends JFrame implements ActionListener{
         //우측 세번 째 패널 (시간 충전 버튼)
         timechargeJButton = new JButton("시간 충전");
         eastJPanel.add(timechargeJButton);
-  
+
 
         //우측 네번 째 패널 (종료 버튼)
         shutdowJButton = new JButton("시스템 종료");
         eastJPanel.add(shutdowJButton);
-       
+
         //남쪽 패널
         //테트리스 게임 버튼 추가
         tetrisJButton = new JButton("테트리스 게임");
@@ -118,8 +119,8 @@ public class UiFrame extends JFrame implements ActionListener{
 
 
         // 시간을 업데이트하는 스레드 시작
-        TimeThread tth = new TimeThread();
-        System.out.println(tth.getMinute());
+        Thread thread = new Thread(this);
+        thread.start();
 
         //버튼에 대한 리스너 추가
         shutdowJButton.addActionListener(this);
@@ -133,14 +134,19 @@ public class UiFrame extends JFrame implements ActionListener{
         setVisible(true);
         
     }
-
-    class RemainTime extends JPanel{ // implements Runnable
+    
+    class RemainTime extends JPanel{
+        static RemainTime instance;
+        static JLabel ret;
         RemainTime(){
+            instance = this;
             setLayout(new GridLayout(2,0));
             add(new JLabel("남은 시간"));
-            add(new JLabel("표시")); // 구현 안 됨
-            
-        
+            ret = new JLabel(String.valueOf(udb.get_remain_minutes() + "분"));
+            add(ret);
+        }
+        static RemainTime getInstance(){
+            return instance;
         }
     }
 
@@ -151,13 +157,13 @@ public class UiFrame extends JFrame implements ActionListener{
         if(e.getSource() == shutdowJButton){
             int ok = JOptionPane.showConfirmDialog(this, "종료하시겠습니까?");
             if(ok == 0){
+                udb.updateTime(Integer.parseInt(RemainTime.ret.getText().split("분")[0]));
                 udb.databaseClose();
                 System.exit(0);
             }
         }
         if(e.getSource() == timechargeJButton){
-            new TimeFrame();
-            udb.addTime(0); // 아직 구현덜 됨
+            new TimeFrame1();
         }
         if(e.getSource() == foodJButton){
             new MenuFrame();
@@ -175,6 +181,80 @@ public class UiFrame extends JFrame implements ActionListener{
             }catch(Exception ek){
                 JOptionPane.showMessageDialog(null,"에러 발생");
             }
+        }
+    }
+    public static UiFrame getInstance(){
+        return instance;
+    }
+    public static UsersDatabase getUsersDatabase(){
+        return udb;
+    }
+
+
+    //시간을 확인할 쓰레드
+    @Override
+    public void run() {
+        long nanoPerSecond = 1000000000;
+        long lastTime = System.nanoTime();
+        while (true) { 
+            long currentTime = System.nanoTime();
+            if (currentTime - lastTime >= nanoPerSecond) {
+                time++;
+                System.out.println(time);
+                if(time == 60){
+                    minute ++;
+                    time = 0;
+                    int min = Integer.parseInt(RemainTime.ret.getText().split("분")[0]);
+                    RemainTime.ret.setText(String.valueOf(min - minute) + "분");
+                    UiFrame.getInstance().revalidate();
+                    UiFrame.getInstance().repaint();
+                }
+                lastTime = currentTime;
+            }
+        }
+    }
+}
+
+
+class TimeFrame1 extends JFrame{
+    static TimeFrame1 instance;
+
+    TimeFrame1(){
+        instance = this;
+        setTitle("시간을 선택해주세요.");
+        setSize(600, 300);
+        setLayout(new GridLayout(2, 4, 20, 30));
+        TimeSel timeJButtons[] = new TimeSel[8];
+                
+                for(int i = 0 ;i <timeJButtons.length; i++){
+                    timeJButtons[i] = new TimeSel();
+                    add(timeJButtons[i]);
+                    timeJButtons[i].addActionListener(new ButtnClickListener1());
+                    timeJButtons[i].setText((i+1)*30 + "분");
+                }
+        setVisible(true);
+        setLocationRelativeTo(null);
+    }
+    public static TimeFrame1 getInstance() {
+        return instance;
+    }
+}
+//시간 버튼에 대한 각각 다른 메소드 만들기
+class ButtnClickListener1 implements ActionListener{
+    @Override
+    public void actionPerformed(ActionEvent e){
+        JButton buttonCliked = (JButton) e.getSource();
+        String buttonText = buttonCliked.getText();
+        int timecharge = Integer.parseInt(buttonText.substring(0, buttonText.length() - 1));
+        int con = JOptionPane.showConfirmDialog(null, timecharge + " 분 충전 하시겠습니까?", "확인", JOptionPane.OK_CANCEL_OPTION);
+        if (con == JOptionPane.YES_OPTION) {
+            int min = Integer.parseInt(RemainTime.ret.getText().split("분")[0]);
+            RemainTime.ret.setText(String.valueOf(min +timecharge) + "분");
+            JOptionPane.showMessageDialog(null, "요금이 충전됐습니다.");
+            TimeFrame1.getInstance().dispose();
+            UiFrame.getInstance().revalidate();
+            UiFrame.getInstance().repaint();
+            
         }
     }
 }

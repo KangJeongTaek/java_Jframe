@@ -30,6 +30,19 @@ public class UsersDatabase {
         }
     }
 
+    public int get_remain_minutes(){
+        int minutes = 0;
+        String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ LogInFrame.id + "'";
+        try {
+            rs = stmt.executeQuery(selectStr);
+            if(rs.next()){
+            minutes = rs.getInt("TIME_RE");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return minutes;
+    }
     public boolean logincheck(String i, String p){
         boolean b = false;
         String id = i;
@@ -90,7 +103,21 @@ public class UsersDatabase {
         }catch(SQLException e){
             e.printStackTrace();
         }
-    } 
+    }
+
+    public void updateTime(int m){
+        try{
+            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ LogInFrame.id + "'";
+            ResultSet rs = stmt.executeQuery(selectStr);
+            if(rs.next() != false){
+                String updateStr = "UPDATE USERS SET TIME_RE = " + m + "WHERE ID = " + "'" + LogInFrame.id + "'";
+                pstmt = con.prepareStatement(updateStr);
+                pstmt.executeUpdate();
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public void databaseClose(){
         if(stmt!=null){

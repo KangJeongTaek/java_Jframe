@@ -86,15 +86,6 @@ class Seat extends JPanel{
 
                 TimeFrame timeSel = new TimeFrame();
 
-            
-                TimeSel timeJButtons[] = new TimeSel[8];
-                
-                for(int i = 0 ;i <timeJButtons.length; i++){
-                    timeJButtons[i] = new TimeSel();
-                    timeSel.add(timeJButtons[i]);
-                    timeJButtons[i].addActionListener(new ButtnClickListener());
-                    timeJButtons[i].setText((i+1)*30 + "분");
-                }
 
 
                 timeSel.setLocationRelativeTo(null);
@@ -132,6 +123,7 @@ class TimeSel extends JButton{
         setBackground(Color.YELLOW);
         setForeground(Color.BLACK);
         setOpaque(true);
+        
     }
 }
 
@@ -144,6 +136,14 @@ class TimeFrame extends JFrame{
         setTitle("시간을 선택해주세요.");
         setSize(600, 300);
         setLayout(new GridLayout(2, 4, 20, 30));
+        TimeSel timeJButtons[] = new TimeSel[8];
+                
+                for(int i = 0 ;i <timeJButtons.length; i++){
+                    timeJButtons[i] = new TimeSel();
+                    add(timeJButtons[i]);
+                    timeJButtons[i].addActionListener(new ButtnClickListener());
+                    timeJButtons[i].setText((i+1)*30 + "분");
+                }
         setVisible(true);
         setLocationRelativeTo(null);
     }

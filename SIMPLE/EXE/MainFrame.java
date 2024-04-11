@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 import Frame.LogInFrame;
 import Frame.SignUpFrame;
-import Frame.UiFrame;
 public class MainFrame extends JFrame{
     public int time;
     // 정적 변수 선언
@@ -21,7 +20,7 @@ public class MainFrame extends JFrame{
 
     // 이름과 비밀 번호를 담을 배열 선언
     public MainFrame(){
-       
+
         instance = this;
         final int WIDTH = 600;
         final int HEIGHT = 300;
@@ -78,12 +77,9 @@ public class MainFrame extends JFrame{
     }
     
     public static void main(String[] args){
-        
-        
         //메인 화면 띄우기
-        // new MainFrame();
-        new UiFrame();
-        
+        new MainFrame();
+    
     }
 
     
