@@ -144,6 +144,8 @@ class TimeFrame extends JFrame{
         setTitle("시간을 선택해주세요.");
         setSize(600, 300);
         setLayout(new GridLayout(2, 4, 20, 30));
+        setVisible(true);
+        setLocationRelativeTo(null);
     }
     public static TimeFrame getInstance() {
         return instance;

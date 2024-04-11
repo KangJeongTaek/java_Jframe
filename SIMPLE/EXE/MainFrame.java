@@ -81,7 +81,7 @@ public class MainFrame extends JFrame{
         
         
         //메인 화면 띄우기
-        //   new MenuFrame();
+        // new MainFrame();
         new UiFrame();
         
     }

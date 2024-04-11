@@ -1,12 +1,14 @@
 package Frame;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 
 import Database.UsersDatabase;
 import EXE.TimeThread;
+import Game.snake_main.SnakeStart;
 import Game.tetris_main.Tetris;
 public class UiFrame extends JFrame implements ActionListener{
     private JPanel southJPanel;
@@ -30,6 +33,8 @@ public class UiFrame extends JFrame implements ActionListener{
     private JButton githubJButton;
     private JButton foodJButton;
     private UsersDatabase udb;
+    private URI uri;
+    private int minutes;
 
     public UiFrame() {
         // DB 연결
@@ -113,8 +118,8 @@ public class UiFrame extends JFrame implements ActionListener{
 
 
         // 시간을 업데이트하는 스레드 시작
-        new TimeThread();
-
+        TimeThread tth = new TimeThread();
+        System.out.println(tth.getMinute());
 
         //버튼에 대한 리스너 추가
         shutdowJButton.addActionListener(this);
@@ -132,8 +137,8 @@ public class UiFrame extends JFrame implements ActionListener{
     class RemainTime extends JPanel{ // implements Runnable
         RemainTime(){
             setLayout(new GridLayout(2,0));
-            add(new JLabel("남은 시간 표시"));
-            add(new JLabel("표시"));
+            add(new JLabel("남은 시간"));
+            add(new JLabel("표시")); // 구현 안 됨
             
         
         }
@@ -151,6 +156,7 @@ public class UiFrame extends JFrame implements ActionListener{
             }
         }
         if(e.getSource() == timechargeJButton){
+            new TimeFrame();
             udb.addTime(0); // 아직 구현덜 됨
         }
         if(e.getSource() == foodJButton){
@@ -160,7 +166,15 @@ public class UiFrame extends JFrame implements ActionListener{
             new Tetris();
         }
         if(e.getSource() == snakeJButton){
+            new SnakeStart();
+        }
+        if(e.getSource() == githubJButton){
+            try {
+                Desktop.getDesktop().browse(new URI("https://github.com/KangJeongTaek"));
             
+            }catch(Exception ek){
+                JOptionPane.showMessageDialog(null,"에러 발생");
+            }
         }
     }
 }

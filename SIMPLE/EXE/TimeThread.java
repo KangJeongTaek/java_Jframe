@@ -7,6 +7,9 @@ public class TimeThread implements Runnable {
         timeThread = new Thread(this);
         timeThread.start();
     }
+    public int getMinute() {
+        return minute;
+    }
 
     @Override
     public void run() {
@@ -16,7 +19,6 @@ public class TimeThread implements Runnable {
             long currentTime = System.nanoTime();
             if (currentTime - lastTime >= nanoPerSecond) {
                 time++;
-                System.out.println(time);
                 if(time == 60){
                     minute ++;
                     time = 0;
