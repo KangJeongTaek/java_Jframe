@@ -21,6 +21,7 @@ import Database.UsersDatabase;
 import Frame.UiFrame.RemainTime;
 import Game.snake_main.SnakeStart;
 import Game.tetris_main.Tetris;
+
 public class UiFrame extends JFrame implements ActionListener ,Runnable{
     private JPanel southJPanel;
     private JPanel eastJPanel;
@@ -205,7 +206,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
                     minute ++;
                     time = 0;
                     int min = Integer.parseInt(RemainTime.ret.getText().split("분")[0]);
-                    RemainTime.ret.setText(String.valueOf(min - minute) + "분");
+                    RemainTime.ret.setText(String.valueOf(min - 1) + "분");
                     UiFrame.getInstance().revalidate();
                     UiFrame.getInstance().repaint();
                 }
@@ -214,6 +215,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
         }
     }
 }
+
 
 
 class TimeFrame1 extends JFrame{
