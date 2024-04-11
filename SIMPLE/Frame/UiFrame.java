@@ -144,8 +144,8 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
         RemainTime(){
             instance = this;
             setLayout(new GridLayout(2,0));
-            add(new JLabel("남은 시간"));
-            ret = new JLabel(String.valueOf(udb.get_remain_minutes() + "분"));
+            add(new JLabel("남은 시간",JLabel.CENTER));
+            ret = new JLabel(String.valueOf(udb.get_remain_minutes() + "분"),JLabel.CENTER);
             add(ret);
         }
         static RemainTime getInstance(){
