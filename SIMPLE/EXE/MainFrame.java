@@ -2,7 +2,6 @@ package EXE;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,9 +15,6 @@ public class MainFrame extends JFrame{
     public int time;
     // 정적 변수 선언
     private static MainFrame instance;
-    Thread timeThread;
-
-    // 이름과 비밀 번호를 담을 배열 선언
     public MainFrame(){
 
         instance = this;
@@ -29,7 +25,7 @@ public class MainFrame extends JFrame{
         setResizable(false);
 
         //패널 추가하고 디자인하기
-        JPanel start = new JPanel(new GridBagLayout());
+        JPanel start = new JPanel();
         start.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         start.setBackground(new Color(240, 240, 240));
         start.setLayout(null);

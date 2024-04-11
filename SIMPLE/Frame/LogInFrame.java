@@ -59,7 +59,6 @@ public class LogInFrame extends JFrame{
         JPanel loginPanel = new JPanel();
         JButton btn1 = new JButton("확인");
         loginPanel.add(btn1);
-        btn1.setActionCommand("Login");
         btn1.addActionListener(new ActionListener() {
             @SuppressWarnings("deprecation")
             @Override

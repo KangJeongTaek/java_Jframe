@@ -1,6 +1,7 @@
 package Frame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 import Database.UsersDatabase;
 import Frame.UiFrame.RemainTime;
@@ -217,6 +219,17 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
 }
 
 
+
+
+class TimeSel extends JButton{
+    TimeSel(){
+        setBorder(new EtchedBorder());
+        setBackground(Color.YELLOW);
+        setForeground(Color.BLACK);
+        setOpaque(true);
+        
+    }
+}
 
 class TimeFrame1 extends JFrame{
     static TimeFrame1 instance;
