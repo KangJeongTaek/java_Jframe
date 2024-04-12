@@ -77,8 +77,12 @@ class Seat extends JPanel{
         reserve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int ok = JOptionPane.showConfirmDialog(null, "이 좌석으로 이동하시겠습니까?", YES_NO_OPTION)
-                new UserLoginedSeat();
+                int ok = JOptionPane.showConfirmDialog(null, "이 좌석으로 이동하시겠습니까?","확인 메시지",JOptionPane.OK_CANCEL_OPTION);
+                if(ok ==0){
+                    new UserLoginedSeat();
+                    SystemMain.getInstance().dispose();
+                }
+                
             }
         });
     }

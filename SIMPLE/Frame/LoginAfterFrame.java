@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import Database.UsersDatabase;
 public class LoginAfterFrame extends JFrame{
 static LoginAfterFrame instance;
 static JLabel nameun;
+static JButton seatJButton;
     public LoginAfterFrame(){
         //기본 설정
         instance = this;
@@ -38,7 +40,8 @@ static JLabel nameun;
         JLabel idText = new JLabel(LogInFrame.id,JLabel.RIGHT);
         JLabel nim = new JLabel("님!",JLabel.LEFT);
         welcome.setForeground(Color.BLACK);
-        idText.setForeground(Color.blue);
+        idText.setForeground(Color.red);
+        idText.setFont(new Font("고딕체", Font.BOLD,welcome.getFont().getSize()+5));
         nim.setForeground(Color.BLACK);
         north.add(welcome);
         north.add(idText);
@@ -58,12 +61,15 @@ static JLabel nameun;
         // 중앙 패널의 중앙에 버튼 2개 추가하기
         JButton atJButton = new JButton("시간 추가");
         center.add(atJButton,BorderLayout.BEFORE_LINE_BEGINS);
-        JButton seatJButton = new JButton("좌석 선택");
+        atJButton.setBackground(new Color(70, 130, 180));
+        seatJButton = new JButton("좌석 선택");
+        seatJButton.setBackground(new Color(70, 130, 180));
         center.add(seatJButton,BorderLayout.AFTER_LINE_ENDS);
 
-
+        // "남은 시간 : 0분"
         //남은 시간이 0이라면 좌석 선택 불가능
-        if(UsersDatabase.getInstace().get_remain_minutes() == 0){
+        if(Integer.parseInt(nameun.getText().split(" ")[3].split("분")[0]) == 0){
+            System.out.println(nameun.getText().split(" ")[3].split("분")[0] + "실패");
             seatJButton.setEnabled(false);
         }
 
@@ -81,6 +87,7 @@ static JLabel nameun;
             @Override
             public void actionPerformed(ActionEvent e){
                 new SystemMain();
+                dispose();
             }
         });
 
@@ -143,8 +150,9 @@ class ButtnClickListener implements ActionListener{
             udb.addTime(timecharge);
             JOptionPane.showMessageDialog(null, "요금이 충전됐습니다.");
             TimeFrame.getInstance().dispose();
-            LoginAfterFrame.nameun.setText(UsersDatabase.getInstace().get_remain_minutes() + "분");
+            LoginAfterFrame.nameun.setText("남은 시간 : " + UsersDatabase.getInstace().get_remain_minutes() + "분");
             udb.databaseClose();
+            LoginAfterFrame.seatJButton.setEnabled(true);
             LoginAfterFrame.getInstace().revalidate();
             LoginAfterFrame.getInstace().repaint();
         }

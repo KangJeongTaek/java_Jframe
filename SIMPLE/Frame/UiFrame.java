@@ -47,7 +47,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
 
         // 기본적인 프레임 설정
         setTitle("정택 PC");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         pack();
         setSize(new Dimension(800, 480));
         setResizable(false);
@@ -90,6 +90,8 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
 
         //우측 네번 째 패널 (종료 버튼)
         shutdowJButton = new JButton("시스템 종료");
+        shutdowJButton.setBackground(Color.RED);
+        shutdowJButton.setForeground(Color.WHITE);
         eastJPanel.add(shutdowJButton);
 
         //남쪽 패널
@@ -158,7 +160,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == shutdowJButton){
-            int ok = JOptionPane.showConfirmDialog(this, "종료하시겠습니까?");
+            int ok = JOptionPane.showConfirmDialog(this, "종료하시겠습니까?","",JOptionPane.OK_CANCEL_OPTION);
             if(ok == 0){
                 udb.updateTime(Integer.parseInt(RemainTime.ret.getText().split("분")[0]));
                 udb.databaseClose();
@@ -211,6 +213,11 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
                     RemainTime.ret.setText(String.valueOf(min - 1) + "분");
                     UiFrame.getInstance().revalidate();
                     UiFrame.getInstance().repaint();
+                    if(min == 0){
+                        udb.updateTime(min);
+                        udb.databaseClose();
+                        System.exit(0);
+                    }
                 }
                 lastTime = currentTime;
             }

@@ -1,12 +1,15 @@
 package Frame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -49,6 +53,7 @@ public class MenuFrame extends JFrame implements ActionListener{
         northJPanel.setLayout(new GridLayout());
         southJPanel.setLayout(new FlowLayout());
         centerJPanel.setLayout(new BorderLayout());
+        centerJPanel.setBorder(new LineBorder(Color.GRAY,3));
 
 
         //패널 배치하기
@@ -86,10 +91,12 @@ public class MenuFrame extends JFrame implements ActionListener{
         southJPanel.add(purchaseBJButton);
 
 
-        // 가운데 패널에  3 개의 패널 생성하기
+        // 중앙에 들어갈 패널들 생성하기
         ramenMenu = new RamenJPanel();
         snackMenu = new SnackJPanel();
         beverageMenu = new BeverageJPanel();
+
+        
 
 
         // 3개의 패널 버튼이 해야할 행동들
@@ -121,18 +128,21 @@ public class MenuFrame extends JFrame implements ActionListener{
         if(e.getSource() == ramenJButton){
             centerJPanel.removeAll();
             centerJPanel.add(ramenMenu);
+            centerJPanel.add(new JLabel("라면",JLabel.CENTER),BorderLayout.NORTH);
             revalidate();
             repaint();
         }
         if(e.getSource() == snackJButton){
             centerJPanel.removeAll();
             centerJPanel.add(snackMenu);
+            centerJPanel.add(new JLabel("스낵",JLabel.CENTER),BorderLayout.NORTH);
             revalidate();
             repaint();
         }
         if(e.getSource() == beverageJButton){
             centerJPanel.removeAll();
             centerJPanel.add(beverageMenu);
+            centerJPanel.add(new JLabel("음료",JLabel.CENTER),BorderLayout.NORTH);
             revalidate();
             repaint();
         }
@@ -154,6 +164,8 @@ public class MenuFrame extends JFrame implements ActionListener{
         cartTableModel.setRowCount(0);
         JOptionPane.showMessageDialog(this, "구매 완료\n" + sum + "원 결제","구매가 완료됐습니다!!",JOptionPane.INFORMATION_MESSAGE);
     }
+
+
 }
 
 class RamenJPanel extends JPanel{
@@ -161,11 +173,19 @@ class RamenJPanel extends JPanel{
     JButton jinsun;
     RamenJPanel(){
         setLayout(new GridLayout(0, 2, 50, 50));
-        jinMe = new JButton("진라면 매운맛");
-        jinsun = new JButton("진라면 순한맛");
-        add(jinMe);
-        add(jinsun);
+        jinMe = new JButton("구입");
+        jinsun = new JButton("구입");
+        JLabel jinmaeLabel = changeImage("jinmae");
+        JLabel jinsunLabel = changeImage("jinsunjpg");
         
+
+        
+        
+        
+        add(jinmaeLabel);
+        add(jinsunLabel);
+        jinsunLabel.add(jinsun,BorderLayout.SOUTH);
+        jinmaeLabel.add(jinMe,BorderLayout.SOUTH);
     }
     public void addMenuButtonListeners(DefaultTableModel cartTableModel){
         jinMe.addActionListener(new ActionListener() {
@@ -183,6 +203,18 @@ class RamenJPanel extends JPanel{
             }
         });
     }
+    //이미지 만드는 메소드
+    JLabel changeImage(String name){
+        //이미지 아이콘 생성
+        ImageIcon icon = new ImageIcon("./SIMPLE/image/" + name + ".jpg");
+        //이미지 크기 변경
+        Image img = icon.getImage();
+        Image changeImage = img.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        ImageIcon changeIcon = new ImageIcon(changeImage);
+        JLabel imgJLabel = new JLabel(changeIcon);
+        imgJLabel.setLayout(new BorderLayout());
+        return imgJLabel;
+    }
 
 }
 
@@ -191,10 +223,17 @@ class SnackJPanel extends JPanel{
     JButton chip;
     SnackJPanel(){
         setLayout(new GridLayout(0, 2, 50, 50));
-        kkang = new JButton("새우깡");
-        chip = new JButton("스윙칩");
-        add(kkang);
-        add(chip);
+        kkang = new JButton("구입");
+        chip = new JButton("구입");
+        JLabel kkangLabel = changeImage("kkang");
+        JLabel chipLabel = changeImage("chipjpg");
+
+
+        add(kkangLabel);
+        add(chipLabel);
+        kkangLabel.add(kkang,BorderLayout.SOUTH);
+        chipLabel.add(chip,BorderLayout.SOUTH);
+    
 
     }
     public void addMenuButtonListeners(DefaultTableModel cartTableModel){
@@ -213,17 +252,33 @@ class SnackJPanel extends JPanel{
             }
         });
     }
+    //이미지 만드는 메소드
+    JLabel changeImage(String name){
+        //이미지 아이콘 생성
+        ImageIcon icon = new ImageIcon("./SIMPLE/image/" + name + ".jpg");
+        //이미지 크기 변경
+        Image img = icon.getImage();
+        Image changeImage = img.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        ImageIcon changeIcon = new ImageIcon(changeImage);
+        JLabel imgJLabel = new JLabel(changeIcon);
+        imgJLabel.setLayout(new BorderLayout());
+        return imgJLabel;
+    }
 }
 
 class BeverageJPanel extends JPanel{
     JButton pepsi;
-    JButton coka;
+    JButton coca;
     BeverageJPanel(){
         setLayout(new GridLayout(0, 2, 50, 50));
-        pepsi = new JButton("펩시");
-        coka = new JButton("코카콜라");
-        add(pepsi);
-        add(coka);
+        pepsi = new JButton("구입");
+        coca = new JButton("구입");
+        JLabel pepsiLabel = changeImage("pepsi");
+        JLabel cocaLabel = changeImage("coca");
+        add(pepsiLabel);
+        add(cocaLabel);
+        pepsiLabel.add(pepsi,BorderLayout.SOUTH);
+        cocaLabel.add(coca,BorderLayout.SOUTH);
 
     }
     public void addMenuButtonListeners(DefaultTableModel cartTableModel){
@@ -235,11 +290,23 @@ class BeverageJPanel extends JPanel{
             }
             
         });
-        coka.addActionListener(new ActionListener() {
+        coca.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 cartTableModel.addRow(new Object[]{"코카콜라",2000});
             }
         });
+    }
+    //이미지 만드는 메소드
+    JLabel changeImage(String name){
+        //이미지 아이콘 생성
+        ImageIcon icon = new ImageIcon("./SIMPLE/image/" + name + ".jpg");
+        //이미지 크기 변경
+        Image img = icon.getImage();
+        Image changeImage = img.getScaledInstance(200,200, Image.SCALE_SMOOTH);
+        ImageIcon changeIcon = new ImageIcon(changeImage);
+        JLabel imgJLabel = new JLabel(changeIcon);
+        imgJLabel.setLayout(new BorderLayout());
+        return imgJLabel;
     }
 }
