@@ -10,11 +10,15 @@ import Frame.LogInFrame;
 
 
 public class UsersDatabase {
+    static UsersDatabase instance;
     Statement stmt =  null;
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     //DB 로그인 확인하기
+    public UsersDatabase(){
+        instance = this;
+    }
     public void connect(){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -149,5 +153,8 @@ public class UsersDatabase {
             }
         }
         System.out.println("연결 해제");
+    }
+    static public UsersDatabase getInstace(){
+        return instance;
     }
 }

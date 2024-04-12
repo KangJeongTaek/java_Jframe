@@ -71,7 +71,8 @@ public class LogInFrame extends JFrame{
                     if(udb.logincheck(id,pas)){
                         dispose();
                         MainFrame.getInstance().dispose();
-                        new SystemMain();
+                        // new SystemMain();
+                        new LoginAfterFrame();
                     }else{
                         JOptionPane.showMessageDialog(null, "해당하는 정보가 없습니다. 아이디/ 비밀번호를 확인해주세요.");
                     }

@@ -15,8 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import Database.UsersDatabase;
-
 public class SystemMain extends JFrame{
     private static SystemMain instance;
     public SystemMain(){
@@ -72,41 +70,16 @@ class Seat extends JPanel{
         JButton reserve = new JButton("선택");
         reserve.setFont(font);
         add(reserve,BorderLayout.SOUTH);
-        
 
-        //취소 버튼
-        JButton cancle = new JButton("취소");
-        cancle.setFont(font);
         
         
         //선택 버튼을 클릭했을 때
         reserve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                TimeFrame timeSel = new TimeFrame();
-
-
-
-                timeSel.setLocationRelativeTo(null);
-                timeSel.setVisible(true);
-
-                setBackground(Color.PINK);
-                reserve.setVisible(false);
-                add(cancle,BorderLayout.SOUTH);
-                cancle.setVisible(true);
-                
+                int ok = JOptionPane.showConfirmDialog(null, "이 좌석으로 이동하시겠습니까?", YES_NO_OPTION)
+                new UserLoginedSeat();
             }
-        });
-
-        cancle.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setBackground(Color.CYAN);
-                cancle.setVisible(false);
-                reserve.setVisible(true);
-            }
-            
         });
     }
 
@@ -116,59 +89,3 @@ class Seat extends JPanel{
     
 }
 
-// 선택 버튼을 클릭했을 때 나오는 버튼
-class TimeSel extends JButton{
-    TimeSel(){
-        setBorder(new EtchedBorder());
-        setBackground(Color.YELLOW);
-        setForeground(Color.BLACK);
-        setOpaque(true);
-        
-    }
-}
-
-// 선택 버튼을 클릭했을 때 나오는 프레임
-class TimeFrame extends JFrame{
-    static TimeFrame instance;
-
-    TimeFrame(){
-        instance = this;
-        setTitle("시간을 선택해주세요.");
-        setSize(600, 300);
-        setLayout(new GridLayout(2, 4, 20, 30));
-        TimeSel timeJButtons[] = new TimeSel[8];
-                
-                for(int i = 0 ;i <timeJButtons.length; i++){
-                    timeJButtons[i] = new TimeSel();
-                    add(timeJButtons[i]);
-                    timeJButtons[i].addActionListener(new ButtnClickListener());
-                    timeJButtons[i].setText((i+1)*30 + "분");
-                }
-        setVisible(true);
-        setLocationRelativeTo(null);
-    }
-    public static TimeFrame getInstance() {
-        return instance;
-    }
-}
-
-//시간 버튼에 대한 각각 다른 메소드 만들기
-class ButtnClickListener implements ActionListener{
-    @Override
-    public void actionPerformed(ActionEvent e){
-        JButton buttonCliked = (JButton) e.getSource();
-        String buttonText = buttonCliked.getText();
-        int timecharge = Integer.parseInt(buttonText.substring(0, buttonText.length() - 1));
-        int con = JOptionPane.showConfirmDialog(null, timecharge + " 분 충전 하시겠습니까?", "확인", JOptionPane.OK_CANCEL_OPTION);
-        if (con == JOptionPane.YES_OPTION) {
-            UsersDatabase udb = new UsersDatabase();
-            udb.connect();
-            udb.addTime(timecharge);
-            udb.databaseClose();
-            JOptionPane.showMessageDialog(null, "요금이 충전됐습니다.");
-            SystemMain.getInstance().dispose();
-            TimeFrame.getInstance().dispose();
-            new UserLoginedSeat();
-        }
-    }
-}
