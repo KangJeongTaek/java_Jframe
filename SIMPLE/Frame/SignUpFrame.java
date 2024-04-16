@@ -19,9 +19,7 @@ import Database.UsersDatabase;
 import EXE.MainFrame;
 public class SignUpFrame extends JFrame{
     public SignUpFrame(){
-        //데이터베이스 연결하기
-        UsersDatabase udb = new UsersDatabase();
-        udb.connect();
+        
 
         //기본 설정
         setTitle("회원가입");
@@ -54,6 +52,9 @@ public class SignUpFrame extends JFrame{
 
         btn1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
+                //데이터베이스 연결하기
+                UsersDatabase udb = new UsersDatabase();
+                udb.connect();
                 String id = idText.getText();
                 @SuppressWarnings("deprecation")
                 String pas = pasText.getText();
@@ -67,6 +68,7 @@ public class SignUpFrame extends JFrame{
                     }else{
                         JOptionPane.showMessageDialog(null, "중복되는 아이디가 있습니다. 아이디를 바꿔 주세요.");
                     }
+                    udb.databaseClose();
                 }
                 
             }
@@ -85,7 +87,7 @@ public class SignUpFrame extends JFrame{
             @Override
             public void windowClosed(WindowEvent we) {
                 MainFrame.getInstance().setEnabled(true);
-                udb.databaseClose();
+                
             }
         });
     }

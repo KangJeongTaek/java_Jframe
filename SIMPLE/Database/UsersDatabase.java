@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Frame.LogInFrame;
+import EXE.MainFrame;
 
 
 public class UsersDatabase {
@@ -36,7 +36,7 @@ public class UsersDatabase {
 
     public int get_remain_minutes(){
         int minutes = 0;
-        String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ LogInFrame.id + "'";
+        String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ MainFrame.id + "'";
         try {
             rs = stmt.executeQuery(selectStr);
             if(rs.next()){
@@ -96,11 +96,11 @@ public class UsersDatabase {
     public void addTime(int m){
         int minute = m;
         try{
-            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ LogInFrame.id + "'";
+            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ MainFrame.id + "'";
             ResultSet rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
                 int time_re = rs.getInt("TIME_RE");
-                String updateStr = "UPDATE USERS SET TIME_RE = " + (minute + time_re) + "WHERE ID = " + "'" + LogInFrame.id + "'";
+                String updateStr = "UPDATE USERS SET TIME_RE = " + (minute + time_re) + "WHERE ID = " + "'" + MainFrame.id + "'";
                 pstmt = con.prepareStatement(updateStr);
                 pstmt.executeUpdate();
             }
@@ -111,16 +111,34 @@ public class UsersDatabase {
 
     public void updateTime(int m){
         try{
-            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ LogInFrame.id + "'";
+            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ MainFrame.id + "'";
             ResultSet rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
-                String updateStr = "UPDATE USERS SET TIME_RE = " + m + "WHERE ID = " + "'" + LogInFrame.id + "'";
+                String updateStr = "UPDATE USERS SET TIME_RE = " + m + "WHERE ID = " + "'" + MainFrame.id + "'";
                 pstmt = con.prepareStatement(updateStr);
                 pstmt.executeUpdate();
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public String findpas(String id){
+        String passWord = "";
+        try{
+            String selectStr = "SELECT PASSWORD FROM USERS WHERE ID = "+ "'" + id + "'";
+            ResultSet rs = stmt.executeQuery(selectStr);
+            if(rs.next() != false){
+                passWord = rs.getString("PASSWORD");
+                return "비밀번호는 " + passWord + "입니다.";
+            }else{
+                passWord = "해당하는 아이디가 없습니다.";
+                
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return passWord;
     }
 
     public void databaseClose(){

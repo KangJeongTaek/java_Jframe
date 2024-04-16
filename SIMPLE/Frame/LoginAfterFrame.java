@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import Database.UsersDatabase;
+import EXE.MainFrame;
 
 public class LoginAfterFrame extends JFrame{
 static LoginAfterFrame instance;
@@ -37,7 +38,7 @@ static JButton seatJButton;
         north.setBackground(Color.cyan);
         //북측 패널에 글자 넣기
         JLabel welcome = new JLabel("환영합니다",JLabel.CENTER);
-        JLabel idText = new JLabel(LogInFrame.id,JLabel.RIGHT);
+        JLabel idText = new JLabel(MainFrame.id,JLabel.RIGHT);
         JLabel nim = new JLabel("님!",JLabel.LEFT);
         welcome.setForeground(Color.BLACK);
         idText.setForeground(Color.red);
@@ -69,7 +70,6 @@ static JButton seatJButton;
         // "남은 시간 : 0분"
         //남은 시간이 0이라면 좌석 선택 불가능
         if(Integer.parseInt(nameun.getText().split(" ")[3].split("분")[0]) == 0){
-            System.out.println(nameun.getText().split(" ")[3].split("분")[0] + "실패");
             seatJButton.setEnabled(false);
         }
 
