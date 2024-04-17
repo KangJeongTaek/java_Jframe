@@ -269,9 +269,13 @@ class ButtnClickListener1 implements ActionListener{
         int timecharge = Integer.parseInt(buttonText.substring(0, buttonText.length() - 1));
         int con = JOptionPane.showConfirmDialog(null, timecharge + " 분 충전 하시겠습니까?", "확인", JOptionPane.OK_CANCEL_OPTION);
         if (con == JOptionPane.YES_OPTION) {
+            UsersDatabase udb = new UsersDatabase();
+            udb.connect();
             int min = Integer.parseInt(RemainTime.ret.getText().split("분")[0]);
             RemainTime.ret.setText(String.valueOf(min +timecharge) + "분");
+            udb.updateTime(MainFrame.getInstance().getId(), min + timecharge);
             JOptionPane.showMessageDialog(null, "요금이 충전됐습니다.");
+            udb.databaseClose();
             TimeFrame1.getInstance().dispose();
             UiFrame.getInstance().revalidate();
             UiFrame.getInstance().repaint();
