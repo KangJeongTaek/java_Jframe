@@ -22,10 +22,11 @@ public class LoginAfterFrame extends JFrame{
 static LoginAfterFrame instance;
 static JLabel nameun;
 static JButton seatJButton;
+static UsersDatabase udb;
 
     public LoginAfterFrame(){
         //기본 설정
-        UsersDatabase udb = new UsersDatabase();
+        udb = new UsersDatabase();
         udb.connect();
         instance = this;
         setSize(new Dimension(240,200));
@@ -60,7 +61,7 @@ static JButton seatJButton;
         //중앙 패널의 북쪽에 남은 시간 표시하기
         nameun = new JLabel("남은 시간 : " + String.valueOf(udb.get_remain_minutes(MainFrame.getInstance().getId())) + "분",JLabel.CENTER);
         center.add(nameun,BorderLayout.NORTH);
-        udb.databaseClose();
+        
 
         // 중앙 패널의 중앙에 버튼 2개 추가하기
         JButton atJButton = new JButton("시간 추가");
@@ -90,6 +91,7 @@ static JButton seatJButton;
             @Override
             public void actionPerformed(ActionEvent e){
                 new SystemMain();
+                udb.databaseClose();
                 dispose();
             }
         });
@@ -149,13 +151,10 @@ class ButtnClickListener implements ActionListener{
         int timecharge = Integer.parseInt(buttonText.substring(0, buttonText.length() - 1));
         int con = JOptionPane.showConfirmDialog(null, timecharge + " 분 충전 하시겠습니까?", "확인", JOptionPane.OK_CANCEL_OPTION);
         if (con == JOptionPane.YES_OPTION) {
-            UsersDatabase udb = new UsersDatabase();
-            udb.connect();
-            udb.addTime(MainFrame.getInstance().getId(),timecharge);
+            LoginAfterFrame.udb.addTime(MainFrame.getInstance().getId(),timecharge);
             JOptionPane.showMessageDialog(null, "요금이 충전됐습니다.");
             TimeFrame.getInstance().dispose();
-            LoginAfterFrame.nameun.setText("남은 시간 : " + udb.get_remain_minutes(MainFrame.getInstance().getId()) + "분");
-            udb.databaseClose();
+            LoginAfterFrame.nameun.setText("남은 시간 : " + LoginAfterFrame.udb.get_remain_minutes(MainFrame.getInstance().getId()) + "분");
             LoginAfterFrame.seatJButton.setEnabled(true);
             LoginAfterFrame.getInstace().revalidate();
             LoginAfterFrame.getInstace().repaint();

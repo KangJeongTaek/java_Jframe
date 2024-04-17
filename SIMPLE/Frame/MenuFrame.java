@@ -82,6 +82,7 @@ public class MenuFrame extends JFrame implements ActionListener{
         cartTableModel.addColumn("제품명");
         cartTableModel.addColumn("가격");
         cartTable = new JTable(cartTableModel);
+        cartTable.getTableHeader().setReorderingAllowed(false);
         JScrollPane sc = new JScrollPane(cartTable);
         eastJPanel.add(sc);
 

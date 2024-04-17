@@ -26,10 +26,9 @@ public class MainFrame extends JFrame{
     // 정적 변수 선언
     private static MainFrame instance;
     private JButton btn2;
+    UsersDatabase udb;
     
     public MainFrame(){
-        
-
         instance = this;
         final int WIDTH = 600;
         final int HEIGHT = 300;
@@ -103,13 +102,14 @@ public class MainFrame extends JFrame{
                     UsersDatabase udb = new UsersDatabase();
                     udb.connect();
                     if(udb.logincheck(id,pas)){
+                        udb.databaseClose();
                         dispose();
                         MainFrame.getInstance().dispose();
                         new LoginAfterFrame();
                     }else{
                         JOptionPane.showMessageDialog(null, "해당하는 정보가 없습니다. 아이디/ 비밀번호를 확인해주세요.");
                     }
-                udb.databaseClose();
+                
             }
             }
         });
