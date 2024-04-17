@@ -39,7 +39,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
     private UsersDatabase udb;
     private static UiFrame instance;
     private long time;
-    private int minute;
+    int minute;
     public UiFrame() {
         instance = this;
         // DB 연결
