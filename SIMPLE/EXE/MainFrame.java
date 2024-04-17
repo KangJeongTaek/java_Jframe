@@ -150,6 +150,9 @@ public class MainFrame extends JFrame{
     }
 
     public static MainFrame getInstance() {
+        if (instance == null) {
+            instance = new MainFrame();
+        }
         return instance;
     }
     public String getId(){

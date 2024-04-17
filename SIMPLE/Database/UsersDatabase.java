@@ -89,7 +89,7 @@ public class UsersDatabase {
     public void addTime(String id , int m){
         int minute = m;
         try{
-            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
+            String selectStr = "SELECT TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
             rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
                 int time_re = rs.getInt("TIME_RE");
@@ -104,7 +104,7 @@ public class UsersDatabase {
 
     public void updateTime(String id, int m){
         try{
-            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
+            String selectStr = "SELECT TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
             rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
                 String updateStr = "UPDATE USERS SET TIME_RE = " + m + "WHERE ID = " + "'" + id + "'";
