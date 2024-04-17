@@ -22,8 +22,11 @@ public class LoginAfterFrame extends JFrame{
 static LoginAfterFrame instance;
 static JLabel nameun;
 static JButton seatJButton;
+
     public LoginAfterFrame(){
         //기본 설정
+        UsersDatabase udb = new UsersDatabase();
+        udb.connect();
         instance = this;
         setSize(new Dimension(240,200));
         setLayout(new BorderLayout());
@@ -38,7 +41,7 @@ static JButton seatJButton;
         north.setBackground(Color.cyan);
         //북측 패널에 글자 넣기
         JLabel welcome = new JLabel("환영합니다",JLabel.CENTER);
-        JLabel idText = new JLabel(MainFrame.id,JLabel.RIGHT);
+        JLabel idText = new JLabel(MainFrame.getInstance().getId(),JLabel.RIGHT);
         JLabel nim = new JLabel("님!",JLabel.LEFT);
         welcome.setForeground(Color.BLACK);
         idText.setForeground(Color.red);
@@ -55,9 +58,9 @@ static JButton seatJButton;
         add(center,BorderLayout.CENTER);
         
         //중앙 패널의 북쪽에 남은 시간 표시하기
-        nameun = new JLabel("남은 시간 : " + String.valueOf(UsersDatabase.getInstace().get_remain_minutes()) + "분",JLabel.CENTER);
+        nameun = new JLabel("남은 시간 : " + String.valueOf(udb.get_remain_minutes(MainFrame.getInstance().getId())) + "분",JLabel.CENTER);
         center.add(nameun,BorderLayout.NORTH);
-
+        udb.databaseClose();
 
         // 중앙 패널의 중앙에 버튼 2개 추가하기
         JButton atJButton = new JButton("시간 추가");
@@ -127,6 +130,7 @@ class TimeFrame extends JFrame{
                     add(timeJButtons[i]);
                     timeJButtons[i].addActionListener(new ButtnClickListener());
                     timeJButtons[i].setText((i+1)*30 + "분");
+                    timeJButtons[i].setBorderPainted(false);
                 }
         setVisible(true);
         setLocationRelativeTo(null);
@@ -147,10 +151,10 @@ class ButtnClickListener implements ActionListener{
         if (con == JOptionPane.YES_OPTION) {
             UsersDatabase udb = new UsersDatabase();
             udb.connect();
-            udb.addTime(timecharge);
+            udb.addTime(MainFrame.getInstance().getId(),timecharge);
             JOptionPane.showMessageDialog(null, "요금이 충전됐습니다.");
             TimeFrame.getInstance().dispose();
-            LoginAfterFrame.nameun.setText("남은 시간 : " + UsersDatabase.getInstace().get_remain_minutes() + "분");
+            LoginAfterFrame.nameun.setText("남은 시간 : " + udb.get_remain_minutes(MainFrame.getInstance().getId()) + "분");
             udb.databaseClose();
             LoginAfterFrame.seatJButton.setEnabled(true);
             LoginAfterFrame.getInstace().revalidate();

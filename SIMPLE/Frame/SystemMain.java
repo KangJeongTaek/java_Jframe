@@ -60,7 +60,7 @@ class Seat extends JPanel{
     private static Seat instance;
     Seat(){
         instance = this;
-        setBackground(Color.CYAN);
+        setBackground(new Color(0,183,235));
         setBorder(new EtchedBorder());
         setLayout(new BorderLayout());
 
@@ -69,6 +69,8 @@ class Seat extends JPanel{
         //예약 버튼
         JButton reserve = new JButton("선택");
         reserve.setFont(font);
+        reserve.setBorderPainted(false);
+        reserve.setBackground(Color.YELLOW);
         add(reserve,BorderLayout.SOUTH);
 
         

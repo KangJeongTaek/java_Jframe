@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import Database.UsersDatabase;
+import EXE.MainFrame;
 import Frame.UiFrame.RemainTime;
 import Game.snake_main.SnakeStart;
 import Game.tetris_main.Tetris;
@@ -35,7 +36,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
     private JButton snakeJButton;
     private JButton githubJButton;
     private JButton foodJButton;
-    private static UsersDatabase udb;
+    private UsersDatabase udb;
     private static UiFrame instance;
     private long time;
     private int minute;
@@ -147,7 +148,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
             instance = this;
             setLayout(new GridLayout(2,0));
             add(new JLabel("남은 시간",JLabel.CENTER));
-            ret = new JLabel(String.valueOf(udb.get_remain_minutes() + "분"),JLabel.CENTER);
+            ret = new JLabel(String.valueOf(udb.get_remain_minutes(MainFrame.getInstance().getId()) + "분"),JLabel.CENTER);
             add(ret);
         }
         static RemainTime getInstance(){
@@ -162,7 +163,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
         if(e.getSource() == shutdowJButton){
             int ok = JOptionPane.showConfirmDialog(this, "종료하시겠습니까?","",JOptionPane.OK_CANCEL_OPTION);
             if(ok == 0){
-                udb.updateTime(Integer.parseInt(RemainTime.ret.getText().split("분")[0]));
+                udb.updateTime(MainFrame.getInstance().getId(),Integer.parseInt(RemainTime.ret.getText().split("분")[0]));
                 udb.databaseClose();
                 System.exit(0);
             }
@@ -191,9 +192,6 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
     public static UiFrame getInstance(){
         return instance;
     }
-    public static UsersDatabase getUsersDatabase(){
-        return udb;
-    }
 
 
     //시간을 확인할 쓰레드
@@ -214,7 +212,7 @@ public class UiFrame extends JFrame implements ActionListener ,Runnable{
                     UiFrame.getInstance().revalidate();
                     UiFrame.getInstance().repaint();
                     if(min == 0){
-                        udb.updateTime(min);
+                        udb.updateTime(MainFrame.getInstance().getId(),min);
                         udb.databaseClose();
                         System.exit(0);
                     }
@@ -253,6 +251,7 @@ class TimeFrame1 extends JFrame{
                     add(timeJButtons[i]);
                     timeJButtons[i].addActionListener(new ButtnClickListener1());
                     timeJButtons[i].setText((i+1)*30 + "분");
+                    timeJButtons[i].setBorderPainted(false);
                 }
         setVisible(true);
         setLocationRelativeTo(null);

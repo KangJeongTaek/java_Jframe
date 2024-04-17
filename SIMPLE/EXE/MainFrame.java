@@ -21,10 +21,12 @@ import Frame.FindFrame;
 import Frame.LoginAfterFrame;
 import Frame.SignUpFrame;
 public class MainFrame extends JFrame{
-    public static  String id;
-    public String pas;
+    private String id;
+    private String pas;
     // 정적 변수 선언
     private static MainFrame instance;
+    private JButton btn2;
+    
     public MainFrame(){
         
 
@@ -57,19 +59,32 @@ public class MainFrame extends JFrame{
         start.add(idLabel);
         JTextField idText = new JTextField(30);
         idText.setBounds(WIDTH/2 - 150,HEIGHT-95,100,20);
-        id = idText.getText();
+        idText.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btn2.doClick();
+            }
+        });
         start.add(idText);
+        
 
         //비밀 번호 입력 공간
         JLabel pasLabel = new JLabel("비밀번호");
         pasLabel.setBounds(WIDTH/2 - 200, HEIGHT-55,100,20);
         start.add(pasLabel);
         JPasswordField pasText = new JPasswordField(30);
+        pasText.setEchoChar('*');
         pasText.setBounds(WIDTH/2 - 150, HEIGHT-55,100,20);
+        pasText.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                btn2.doClick();
+            }
+        });
         start.add(pasText);
 
         // 로그인 버튼 구현
-        JButton btn2 = new JButton("로그인");
+        btn2 = new JButton("로그인");
         btn2.setBounds(WIDTH/2-40, HEIGHT-100, 80, 80);
         btn2.setBackground(new Color(60,130,230));
         btn2.setForeground(Color.WHITE);
@@ -134,12 +149,11 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
-    public void closeWindow() {
-        this.dispose();
-    }
-
     public static MainFrame getInstance() {
         return instance;
+    }
+    public String getId(){
+        return id;
     }
     
     public static void main(String[] args){
@@ -147,6 +161,7 @@ public class MainFrame extends JFrame{
     new MainFrame();
     
     }
+    
 
     
 }

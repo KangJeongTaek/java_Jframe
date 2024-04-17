@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 import Database.UsersDatabase;
@@ -29,7 +28,6 @@ public class FindFrame extends JFrame{
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
 
-        JRootPane rootPane = getRootPane();
         
 
 

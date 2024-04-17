@@ -6,19 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import EXE.MainFrame;
-
 
 public class UsersDatabase {
-    static UsersDatabase instance;
     Statement stmt =  null;
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     //DB 로그인 확인하기
-    public UsersDatabase(){
-        instance = this;
-    }
+
     public void connect(){
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -34,9 +29,9 @@ public class UsersDatabase {
         }
     }
 
-    public int get_remain_minutes(){
+    public int get_remain_minutes(String id){
         int minutes = 0;
-        String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ MainFrame.id + "'";
+        String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
         try {
             rs = stmt.executeQuery(selectStr);
             if(rs.next()){
@@ -47,19 +42,17 @@ public class UsersDatabase {
         }
         return minutes;
     }
-    public boolean logincheck(String i, String p){
+
+    public boolean logincheck(String id, String pas){
         boolean b = false;
-        String id = i;
-        String pas = p;
         try {
 			String checkingStr = "SELECT PASSWORD FROM USERS WHERE ID='" + id + "'";
-			ResultSet result = stmt.executeQuery(checkingStr);
-			while(result.next()) {
-				if(pas.equals(result.getString("PASSWORD"))) {
+			rs = stmt.executeQuery(checkingStr);
+			if(rs.next()) {
+				if(pas.equals(rs.getString("PASSWORD"))) {
 					b = true;
 					System.out.println("로그인 성공");
 				}
-				
 				else {
 					b = false;
 					System.out.println("로그인 실패");
@@ -79,8 +72,8 @@ public class UsersDatabase {
         String updateStr = "INSERT INTO USERS VALUES (" + "'" + id + "'" + "," + "'" + pas + "'" + "," + 0 + ")";
         try {
             String checkingStr = "SELECT * FROM USERS WHERE ID='" + id + "'";
-            ResultSet result = stmt.executeQuery(checkingStr);
-            if(result.next() == false){
+            rs = stmt.executeQuery(checkingStr);
+            if(rs.next() == false){
                 pstmt = con.prepareStatement(updateStr);
                 pstmt.executeUpdate();
                 c = true;
@@ -93,14 +86,14 @@ public class UsersDatabase {
             return c;
     }
 
-    public void addTime(int m){
+    public void addTime(String id , int m){
         int minute = m;
         try{
-            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ MainFrame.id + "'";
-            ResultSet rs = stmt.executeQuery(selectStr);
+            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
+            rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
                 int time_re = rs.getInt("TIME_RE");
-                String updateStr = "UPDATE USERS SET TIME_RE = " + (minute + time_re) + "WHERE ID = " + "'" + MainFrame.id + "'";
+                String updateStr = "UPDATE USERS SET TIME_RE = " + (minute + time_re) + "WHERE ID = " + "'" + id + "'";
                 pstmt = con.prepareStatement(updateStr);
                 pstmt.executeUpdate();
             }
@@ -109,12 +102,12 @@ public class UsersDatabase {
         }
     }
 
-    public void updateTime(int m){
+    public void updateTime(String id, int m){
         try{
-            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ MainFrame.id + "'";
-            ResultSet rs = stmt.executeQuery(selectStr);
+            String selectStr = "Select TIME_RE FROM USERS WHERE ID = + " + "'"+ id + "'";
+            rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
-                String updateStr = "UPDATE USERS SET TIME_RE = " + m + "WHERE ID = " + "'" + MainFrame.id + "'";
+                String updateStr = "UPDATE USERS SET TIME_RE = " + m + "WHERE ID = " + "'" + id + "'";
                 pstmt = con.prepareStatement(updateStr);
                 pstmt.executeUpdate();
             }
@@ -127,7 +120,7 @@ public class UsersDatabase {
         String passWord = "";
         try{
             String selectStr = "SELECT PASSWORD FROM USERS WHERE ID = "+ "'" + id + "'";
-            ResultSet rs = stmt.executeQuery(selectStr);
+            rs = stmt.executeQuery(selectStr);
             if(rs.next() != false){
                 passWord = rs.getString("PASSWORD");
                 return "비밀번호는 " + passWord + "입니다.";
@@ -171,8 +164,5 @@ public class UsersDatabase {
             }
         }
         System.out.println("연결 해제");
-    }
-    static public UsersDatabase getInstace(){
-        return instance;
     }
 }
