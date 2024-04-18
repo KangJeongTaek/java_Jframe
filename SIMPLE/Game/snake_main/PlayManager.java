@@ -22,6 +22,13 @@ public class PlayManager {
     Random random = new Random();
 
     public PlayManager(){
+        KeyHandler.upPressed = false;
+        KeyHandler.downPressed = false;
+        KeyHandler.leftPressed = false;
+        KeyHandler.rightPressed = false;
+        game_over = false;
+        contact = false;
+        KeyHandler.pausePressed = false;
         snake = new Snake();
         SNAKE_START_X = GamePanel.WIDTH/2;
         SNAKE_START_Y = GamePanel.HEIGHT/2 + Block.SIZE;
@@ -39,8 +46,8 @@ public class PlayManager {
 
     public void target(){
         targetBlock = new Block(Color.red);
-        targetBlock_X = random.nextInt(WIDTH);
-        targetBlock_Y = random.nextInt(HEIGHT);
+        targetBlock_X = random.nextInt(WIDTH - 10);
+        targetBlock_Y = random.nextInt(HEIGHT - 10);
         targetBlock.setXY(targetBlock_X,targetBlock_Y);
     }
     public void update(){

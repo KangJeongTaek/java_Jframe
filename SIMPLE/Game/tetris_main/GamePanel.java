@@ -16,12 +16,14 @@ public class GamePanel extends JPanel implements Runnable{
     PlayManager pm;
 
     public GamePanel(){
+        this.invalidate();
         this.setPreferredSize(new DimensionUIResource(WIDTH, HEIGHT));
         this.setBackground(Color.BLACK);
         this.setLayout(null);
         this.addKeyListener(new KeyHandler());
         this.setFocusable(true);
         pm = new PlayManager();
+        
     }
     public void launchGame(){
         gameThread = new Thread(this);
@@ -35,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while (gameThread != null){
+        while (Tetris.getWindow().isVisible()){
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drwaInterval;
             lastTime = currentTime;
@@ -45,6 +47,9 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
             }
         }
+        this.invalidate();
+        PlayManager.staticBlocks.clear();
+        
     }
     private void update(){
         if(KeyHandler.pausePressed == false && pm.gameOver == false){

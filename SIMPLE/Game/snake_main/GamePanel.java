@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     PlayManager pm;
     
     public GamePanel(){
+        this.invalidate();
         this.setPreferredSize(new DimensionUIResource(WIDTH, HEIGHT));
         this.setBackground(Color.black);
         this.addKeyListener(new KeyHandler());
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
         long lastTime = System.nanoTime();
         long currentTime;
 
-        while(gameThread != null){
+        while(SnakeStart.getWindows().isVisible()){
             currentTime = System.nanoTime();
             delta += (currentTime- lastTime) / drawInterval;
             lastTime = currentTime;
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
                 delta--;
             }
         }
+        this.removeAll();
     }
     private void update(){
         if(KeyHandler.pausePressed == false){

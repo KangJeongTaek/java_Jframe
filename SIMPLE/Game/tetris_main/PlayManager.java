@@ -48,6 +48,7 @@ public class PlayManager {
     ArrayList<Integer> effetY = new ArrayList<>();
 
     public PlayManager(){
+        KeyHandler.pausePressed = false;
         left_x = (GamePanel.WIDTH/2) - (WIDTH/2);
         right_x = left_x + WIDTH;
         top_y = 50;
