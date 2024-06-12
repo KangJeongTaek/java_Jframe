@@ -34,8 +34,6 @@ https://github.com/KangJeongTaek/java_Jframe/assets/158122796/b7d0f878-efee-4db7
 
 https://github.com/KangJeongTaek/java_Jframe/assets/158122796/9b1d27e6-0b6c-435f-91b5-11c7063c9351
 
-https://github.com/KangJeongTaek/java_Jframe/assets/158122796/be8757fb-fd98-4309-b89c-4b7fb37bb2a2
-
 https://github.com/KangJeongTaek/java_Jframe/assets/158122796/7d0f4d55-9cbb-4125-9f59-fc136dbb12d1
 
 
