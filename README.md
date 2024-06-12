@@ -36,6 +36,7 @@ https://github.com/KangJeongTaek/java_Jframe/assets/158122796/bd6fa865-5801-40fc
 
 ### 좌석 선택 , 좌석으로 이동
 - 이동하는 것을 표현하기 위해 파란 점을 목적지까지 움직이게 만듦
+
 https://github.com/KangJeongTaek/java_Jframe/assets/158122796/b7d0f878-efee-4db7-a13e-0b31be92c026
 
 ### 메인 화면에서 먹거리 주문하기
