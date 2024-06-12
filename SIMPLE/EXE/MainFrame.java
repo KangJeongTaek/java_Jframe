@@ -163,7 +163,4 @@ public class MainFrame extends JFrame{
     new MainFrame();
     
     }
-    
-
-    
 }
