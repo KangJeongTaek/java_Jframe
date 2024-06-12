@@ -21,4 +21,27 @@
 - 메인 화면
 
 ## 단계별 구동영상
-[miniproject01.mp4](..%2F..%2Fgit%2Fmp4%2Fminiproject01.mp4)
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/4c14dd73-8d8b-49e8-a588-ab0a9c27706f
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/b900014c-f81b-4e07-8a8d-78b1cc55b04b
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/62ad783a-412c-421e-91b9-52d8c314747c
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/bd6fa865-5801-40fc-9baf-196643c4dd0b
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/b7d0f878-efee-4db7-a13e-0b31be92c026
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/9b1d27e6-0b6c-435f-91b5-11c7063c9351
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/be8757fb-fd98-4309-b89c-4b7fb37bb2a2
+
+https://github.com/KangJeongTaek/java_Jframe/assets/158122796/7d0f4d55-9cbb-4125-9f59-fc136dbb12d1
+
+
+
+
+
+
+
+
